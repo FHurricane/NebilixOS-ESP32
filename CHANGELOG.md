@@ -21,7 +21,8 @@ Le modifiche rilevanti di NebilixOS sono documentate in questo file.
 - metadata social, dati strutturati SoftwareApplication e FAQ, contenuti GEO e
   layout mobile migliorato per il Marketplace ufficiale;
 - logo NebilixOS ridimensionato nella conferma finale del Web Flasher e
-  versionamento degli asset per evitare interfacce obsolete nella cache.
+  versionamento degli asset per evitare interfacce obsolete nella cache;
+- stato di sviluppo della futura Ultimate Edition evidenziato nel Marketplace.
 
 ### Sicurezza
 
