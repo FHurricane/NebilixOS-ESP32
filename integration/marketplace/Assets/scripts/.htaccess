@@ -1,0 +1,19 @@
+Options -Indexes
+
+# Only NebilixOS packages with filesystem-safe identifiers may be downloaded.
+<FilesMatch "^(?![a-z0-9_-]+\.nbx$)">
+    Require all denied
+</FilesMatch>
+
+# Never allow the hosting stack to interpret an NBX package as executable code.
+<FilesMatch "\.nbx$">
+    RemoveHandler .nbx
+    SetHandler none
+    ForceType application/vnd.nebilixos.script
+
+    <IfModule mod_headers.c>
+        Header always set X-Content-Type-Options "nosniff"
+        Header always set Content-Disposition "attachment"
+        Header always set Cache-Control "no-store, no-cache, must-revalidate"
+    </IfModule>
+</FilesMatch>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Marketplace ufficiale di NebilixOS-ESP32: sistema operativo embedded minimale per miniscript GPIO su ESP32 ed ESP32-S3.">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://nebilixos.local; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=(), accelerometer=(), gyroscope=(), magnetometer=()">
+    <meta name="author" content="Costa Fabio">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#f7fbff">
+    <link rel="canonical" href="https://www.costafabio.it/NebilixOSMKTPLC.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="it_IT">
+    <meta property="og:site_name" content="Costa Fabio">
+    <meta property="og:title" content="NebilixOS Marketplace | Costa Fabio">
+    <meta property="og:description" content="Scopri NebilixOS Core e Ultimate e il Marketplace gratuito di miniscript embedded per ESP32.">
+    <meta property="og:url" content="https://www.costafabio.it/NebilixOSMKTPLC.html">
+    <meta property="og:image" content="https://www.costafabio.it/Assets/ico/favicon.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="NebilixOS Marketplace | Costa Fabio">
+    <meta name="twitter:description" content="Marketplace gratuito di miniscript per NebilixOS-ESP32.">
+    <title>NebilixOS Marketplace | Costa Fabio</title>
+    <link rel="icon" href="Assets/ico/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="Assets/ico/favicon.png">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="stylesheet" href="Assets/css/responsive-site.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "NebilixOS-ESP32",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "ESP32, ESP32-S3",
+            "author": {"@type": "Person", "name": "Costa Fabio"},
+            "license": "https://www.apache.org/licenses/LICENSE-2.0",
+            "url": "https://www.costafabio.it/NebilixOSMKTPLC.html",
+            "description": "Sistema operativo embedded minimale per eseguire miniscript con accesso controllato alle GPIO."
+        }
+    </script>
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #16202a;
+            --muted: #5b6773;
+            --stroke: rgba(255, 255, 255, 0.58);
+            --shadow: 0 24px 70px rgba(31, 44, 62, 0.18);
+            --blue: #2563eb;
+            --green: #0f8a68;
+            --coral: #dc4f5f;
+            --violet: #7547d8;
+            --max: 1180px;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--ink);
+            background:
+                linear-gradient(125deg, rgba(8, 145, 178, 0.12) 0%, transparent 36%),
+                linear-gradient(235deg, rgba(190, 52, 85, 0.12) 0%, transparent 32%),
+                linear-gradient(145deg, #f7fbff 0%, #e8eff6 42%, #f6f4ef 100%);
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+            opacity: 0.18;
+            mix-blend-mode: soft-light;
+        }
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; }
+        .glass {
+            background: linear-gradient(135deg, rgba(255,255,255,.58), rgba(255,255,255,.22));
+            border: 1px solid var(--stroke);
+            box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,.72);
+            backdrop-filter: blur(24px) saturate(155%);
+            -webkit-backdrop-filter: blur(24px) saturate(155%);
+        }
+        .site-header { position: sticky; top: 14px; z-index: 10; max-width: var(--max); margin: 0 auto; padding: 16px 18px 0; }
+        .nav { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-radius: 999px; padding: 9px 10px 9px 18px; }
+        .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; white-space: nowrap; }
+        .brand-mark { width: 36px; height: 36px; object-fit: contain; flex-shrink: 0; }
+        .nav-links { display: flex; align-items: center; gap: 4px; }
+        .nav-links a { min-height: 40px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid transparent; border-radius: 999px; padding: 0 14px; font-size: .92rem; font-weight: 700; transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
+        .nav-links a:hover, .nav-links a[aria-current="page"] { transform: translateY(-1px); background: rgba(255,255,255,.5); border-color: rgba(255,255,255,.74); box-shadow: 0 10px 24px rgba(31,44,62,.12); }
+        main { max-width: var(--max); margin: 0 auto; padding: 86px 18px 64px; }
+        .page-hero { position: relative; display: grid; gap: 24px; padding: 34px 0 38px; }
+        .page-hero::before { content: ""; position: absolute; width: min(440px,70vw); aspect-ratio: 1; right: 2%; top: -36px; border-radius: 42% 58% 47% 53% / 52% 36% 64% 48%; background: linear-gradient(140deg, rgba(37,99,235,.27), rgba(15,138,104,.2), rgba(117,71,216,.14)); pointer-events: none; }
+        .hero-layout { position: relative; display: grid; grid-template-columns: minmax(0,1.12fr) minmax(300px,.88fr); align-items: center; gap: clamp(28px,5vw,68px); }
+        .hero-copy { display: grid; gap: 22px; }
+        .hero-logo { display: block; width: 100%; height: auto; object-fit: contain; }
+        .eyebrow { position: relative; width: fit-content; margin: 0; border-radius: 999px; padding: 8px 13px; color: var(--blue); font-size: .78rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+        h1 { position: relative; max-width: 900px; margin: 0; font-size: clamp(3.1rem,8vw,7rem); line-height: .92; }
+        .gradient-text { color: transparent; background: linear-gradient(105deg,#17324f 0%,var(--blue) 42%,var(--green) 72%,var(--coral) 100%); -webkit-background-clip: text; background-clip: text; }
+        .lead { position: relative; max-width: 780px; margin: 0; color: var(--muted); font-size: clamp(1rem,1.8vw,1.2rem); line-height: 1.62; }
+        .about-trigger { position: relative; display: flex; align-items: center; gap: 12px; width: fit-content; border: 0; background: transparent; padding: 0; color: var(--ink); font-weight: 850; cursor: pointer; }
+        .question-mark { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; color: white; background: linear-gradient(135deg,var(--blue),var(--violet)); box-shadow: 0 12px 30px rgba(37,99,235,.28); font-size: 1.25rem; transition: transform 180ms ease; }
+        .about-trigger:hover .question-mark { transform: rotate(8deg) scale(1.05); }
+        .about-panel { overflow: hidden; border-radius: 28px; padding: 28px; }
+        .about-panel[hidden] { display: none; }
+        .about-panel h2, .section-heading h2 { margin: 0; font-size: clamp(1.7rem,4vw,2.7rem); }
+        .about-panel p { color: var(--muted); line-height: 1.7; }
+        .about-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+        .chip { border-radius: 999px; padding: 8px 12px; background: rgba(255,255,255,.55); color: var(--muted); font-size: .82rem; font-weight: 800; }
+        .section { padding-top: 64px; }
+        .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 22px; }
+        .section-heading p { max-width: 620px; margin: 0; color: var(--muted); line-height: 1.6; }
+        .edition-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
+        .edition-card { position: relative; overflow: hidden; border-radius: 30px; padding: 28px; }
+        .edition-card::after { content: ""; position: absolute; width: 160px; aspect-ratio: 1; right: -54px; top: -54px; border-radius: 50%; background: rgba(37,99,235,.12); }
+        .edition-card.ultimate::after { background: rgba(117,71,216,.16); }
+        .edition-label { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; padding: 7px 11px; background: rgba(255,255,255,.56); color: var(--blue); font-size: .78rem; font-weight: 900; text-transform: uppercase; }
+        .edition-card h3 { margin: 20px 0 8px; font-size: 1.65rem; }
+        .edition-card p, .edition-card li { color: var(--muted); line-height: 1.62; }
+        .edition-card ul { margin: 18px 0 0; padding-left: 20px; }
+        .download-link { position: relative; z-index: 1; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; margin-top: 20px; border-radius: 14px; padding: 0 16px; color: white; background: linear-gradient(135deg,var(--blue),var(--violet)); font-weight: 850; box-shadow: 0 12px 28px rgba(37,99,235,.2); }
+        .checksum-box { position: relative; z-index: 1; display: grid; gap: 9px; margin-top: 16px; border: 1px solid rgba(37,99,235,.13); border-radius: 16px; padding: 13px; background: rgba(255,255,255,.42); }
+        .checksum-box strong { font-size: .78rem; letter-spacing: .05em; text-transform: uppercase; }
+        .checksum-value { overflow-wrap: anywhere; color: var(--muted); font: 700 .72rem/1.55 ui-monospace,SFMono-Regular,Menlo,monospace; }
+        .checksum-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        .checksum-actions button, .checksum-actions a { border: 1px solid rgba(37,99,235,.16); border-radius: 10px; padding: 8px 11px; background: rgba(255,255,255,.6); color: var(--blue); font: 800 .76rem/1 system-ui; cursor: pointer; }
+        .checksum-status { color: var(--green); font-size: .76rem; font-weight: 800; }
+        .market-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; }
+        .script-card { min-height: 250px; display: flex; flex-direction: column; border-radius: 26px; padding: 22px; }
+        .script-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .script-icon { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 15px; color: var(--green); background: rgba(15,138,104,.12); }
+        .badge { border-radius: 999px; padding: 6px 9px; color: var(--green); background: rgba(15,138,104,.1); font-size: .72rem; font-weight: 900; text-transform: uppercase; }
+        .script-card h3 { margin: 18px 0 7px; font-size: 1.15rem; }
+        .script-card p { flex: 1; margin: 0 0 18px; color: var(--muted); line-height: 1.58; }
+        .script-card button { min-height: 42px; border: 1px solid rgba(37,99,235,.15); border-radius: 13px; background: rgba(255,255,255,.48); color: var(--muted); font-weight: 800; cursor: not-allowed; }
+        .script-card button.action, .board-connect button { color: white; background: linear-gradient(135deg,var(--blue),var(--violet)); cursor: pointer; }
+        .script-card button.action:disabled, .board-connect button:disabled { opacity: .55; cursor: wait; }
+        .script-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .pin-choice { display: grid; gap: 7px; margin: 14px 0; color: var(--muted); font-size: .78rem; font-weight: 850; }
+        .pin-choice select { min-height: 44px; border: 1px solid rgba(37,99,235,.16); border-radius: 13px; padding: 0 13px; background: rgba(255,255,255,.72); color: var(--ink); font: inherit; }
+        .board-connect { display: grid; grid-template-columns: minmax(180px,1fr) minmax(220px,1.2fr) auto; gap: 12px; border-radius: 26px; padding: 22px; }
+        .board-connect label { display: grid; gap: 7px; color: var(--muted); font-size: .78rem; font-weight: 850; }
+        .board-connect input { width: 100%; min-height: 44px; border: 1px solid rgba(37,99,235,.16); border-radius: 13px; padding: 0 13px; background: rgba(255,255,255,.62); color: var(--ink); font: inherit; }
+        .board-status { grid-column: 1/-1; margin: 0; color: var(--muted); line-height: 1.5; }
+        .board-status.connected { color: var(--green); font-weight: 800; }
+        .board-status.error { color: var(--coral); }
+        .empty-note { margin: 22px 0 0; padding: 16px 18px; border-radius: 18px; color: var(--muted); line-height: 1.55; text-align: center; }
+        .site-footer { max-width: var(--max); margin: 0 auto 34px; padding: 0 18px; }
+        .footer-panel { min-height: 64px; display: flex; align-items: center; justify-content: center; border-radius: 22px; padding: 16px; color: var(--muted); font-size: .92rem; font-weight: 700; text-align: center; }
+        @media (max-width: 900px) { .market-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+        @media (max-width: 760px) { .hero-layout, .edition-grid, .board-connect { grid-template-columns: 1fr; } .hero-logo { width: min(100%,520px); } .section-heading { align-items: flex-start; flex-direction: column; } }
+        @media (max-width: 620px) {
+            .site-header { top: 8px; padding-inline: 10px; }
+            .nav { align-items: flex-start; border-radius: 24px; flex-direction: column; }
+            .nav-links { width: 100%; overflow-x: auto; padding-bottom: 2px; }
+            h1 { font-size: clamp(2.65rem,15vw,4.2rem); }
+            .market-grid { grid-template-columns: 1fr; }
+            .about-panel, .edition-card { border-radius: 24px; padding: 21px; }
+        }
+        @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav glass" aria-label="Navigazione principale">
+            <a class="brand" href="index.html" aria-label="Costa Fabio, torna alla home">
+                <img class="brand-mark" src="Assets/ico/favicon.png" alt="" width="36" height="36" aria-hidden="true">
+                <span>Costa Fabio</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="Events.html">Events</a>
+                <a href="guidetools.html">Guide &amp; Tools</a>
+                <a href="NebilixOSMKTPLC.html" aria-current="page">NebilixOS</a>
+                <a href="Blog.html">Blog</a>
+                <a href="Contatti.html">Contatti</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero" aria-labelledby="marketplace-title">
+            <div class="hero-layout">
+                <div class="hero-copy">
+                    <p class="eyebrow glass">Embedded Script Marketplace</p>
+                    <h1 id="marketplace-title">NebilixOS <span class="gradient-text">Marketplace.</span></h1>
+                    <p class="lead">Miniscript gratuiti, leggeri e controllati per trasformare le GPIO di ESP32 in automazioni, strumenti e piccoli dispositivi intelligenti.</p>
+                    <button class="about-trigger" id="about-trigger" type="button" aria-expanded="false" aria-controls="about-nebilix">
+                        <span class="question-mark" aria-hidden="true">?</span>
+                        <span>Cos'è NebilixOS-ESP32</span>
+                    </button>
+                </div>
+                <img class="hero-logo" src="Assets/img/nebilixos-esp32-logo.png" alt="Logo NebilixOS-ESP32: una N luminosa integrata in un microcontrollore" width="1254" height="1254">
+            </div>
+            <article class="about-panel glass" id="about-nebilix" hidden>
+                <h2>Un sistema operativo embedded pensato per gli script.</h2>
+                <p>NebilixOS-ESP32 è una piattaforma embedded minimale sviluppata da Costa Fabio sopra ESP-IDF e FreeRTOS. Il suo obiettivo è consentire a maker, studenti e sviluppatori di installare ed eseguire miniscript dedicati alle GPIO senza dover ricompilare ogni volta l'intero firmware.</p>
+                <p>Ogni script passerà attraverso una macchina virtuale e un sistema di permessi: accesso ai pin, memoria, rete e servizi saranno concessi soltanto quando dichiarati dal pacchetto. Il Marketplace distribuirà script gratuiti accompagnati da metadati, compatibilità, versione e firma di integrità.</p>
+                <p>Il progetto prevede gestione Wi-Fi tramite portale web, shell remota, storage persistente, installazione controllata dei pacchetti e strumenti diagnostici. NebilixOS non sostituisce il livello hardware ESP-IDF: lo organizza in un ambiente coerente, modulare e più semplice da usare.</p>
+                <div class="about-meta" aria-label="Informazioni sul progetto">
+                    <span class="chip">Autore: Costa Fabio</span>
+                    <span class="chip">Copyright © 2026 Costa Fabio</span>
+                    <span class="chip">Apache License 2.0</span>
+                    <span class="chip">ESP-IDF + FreeRTOS</span>
+                </div>
+            </article>
+        </section>
+
+        <section class="section" aria-labelledby="editions-title">
+            <div class="section-heading">
+                <h2 id="editions-title">Due edizioni, una sola piattaforma.</h2>
+                <p>La compatibilità di ogni script sarà indicata chiaramente prima del download.</p>
+            </div>
+            <div class="edition-grid">
+                <article class="edition-card glass">
+                    <span class="edition-label"><i data-lucide="cpu"></i> Core Edition</span>
+                    <h3>NebilixOS Core</h3>
+                    <p>La versione essenziale destinata agli ESP32 classici, progettata per consumare poche risorse e controllare sensori, LED, relè e periferiche GPIO.</p>
+                    <ul>
+                        <li>ESP32 dual-core fino a 240 MHz</li>
+                        <li>Runtime minimale per miniscript</li>
+                        <li>GPIO e servizi fondamentali</li>
+                        <li>Configurazione Wi-Fi integrata</li>
+                    </ul>
+                    <a class="download-link" href="Assets/downloads/nebilixos/NebilixOS-Core-0.1.0-Developer-Preview.zip" download>Scarica Core 0.1.0 Developer Preview</a>
+                    <div class="checksum-box" aria-label="Verifica integrità del download">
+                        <strong>SHA-256 dello ZIP</strong>
+                        <code class="checksum-value" id="core-sha256">c2e24c7956a8eb53636825e4a1c81d5c9a6c4555d3341d016094a64b2278732f</code>
+                        <div class="checksum-actions">
+                            <button id="copy-core-sha256" type="button">Copia SHA-256</button>
+                            <a href="Assets/downloads/nebilixos/NebilixOS-Core-0.1.0-Developer-Preview.zip.sha256" download>Scarica .sha256</a>
+                            <span class="checksum-status" id="checksum-status" role="status" aria-live="polite"></span>
+                        </div>
+                    </div>
+                </article>
+                <article class="edition-card glass ultimate">
+                    <span class="edition-label"><i data-lucide="sparkles"></i> Ultimate Edition</span>
+                    <h3>NebilixOS Ultimate</h3>
+                    <p>L'edizione estesa per ESP32-S3 con 16 MB di Flash e 8 MB di PSRAM, pensata per script più articolati, Marketplace locale e servizi avanzati.</p>
+                    <ul>
+                        <li>ESP32-S3 con 16 MB Flash + 8 MB PSRAM</li>
+                        <li>Più script e dati installabili</li>
+                        <li>Cache Marketplace e aggiornamenti OTA</li>
+                        <li>Servizi e periferiche avanzate</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="board-title">
+            <div class="section-heading">
+                <h2 id="board-title">Connetti NebilixOS.</h2>
+                <p>La board deve essere accesa e collegata alla stessa rete del dispositivo dal quale stai visitando il Marketplace.</p>
+            </div>
+            <div class="board-connect glass">
+                <label>Indirizzo della board<input id="board-url" type="url" value="https://nebilixos.local" spellcheck="false" autocomplete="url"></label>
+                <label>Token amministratore<input id="board-token" type="password" placeholder="Token ottenuto con remote token" autocomplete="current-password"></label>
+                <button id="board-connect" type="button">Connetti</button>
+                <p class="board-status" id="board-status" role="status">Board non connessa. Il token resta soltanto in questa scheda del browser.</p>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="scripts-title">
+            <div class="section-heading">
+                <h2 id="scripts-title">Script gratuiti.</h2>
+                <p>Installa gli script direttamente sulla board senza ricompilare o riflashare NebilixOS.</p>
+            </div>
+            <div class="market-grid">
+                <article class="script-card glass" data-script-id="blink-led"><div class="script-top"><span class="script-icon"><i data-lucide="lightbulb"></i></span><span class="badge">Gratis · Core</span></div><h3>Blink LED</h3><p>Fa lampeggiare per dieci volte un LED sul GPIO scelto dall’utente. Versione 1.0.0, meno di 1 KB.</p><label class="pin-choice">Pin logico “led”<select id="blink-pin" disabled><option value="">Connetti prima la board</option></select></label><div class="script-actions"><button class="action install-script" type="button" disabled>Connetti la board</button><button class="action run-script" type="button" disabled>Avvia</button></div></article>
+                <article class="script-card glass"><div class="script-top"><span class="script-icon"><i data-lucide="gauge"></i></span><span class="badge">Gratis</span></div><h3>Sensori</h3><p>Placeholder per lettura, calibrazione e monitoraggio dei sensori collegati.</p><button type="button" disabled>Prossimamente</button></article>
+                <article class="script-card glass"><div class="script-top"><span class="script-icon"><i data-lucide="workflow"></i></span><span class="badge">Gratis</span></div><h3>Automazione</h3><p>Placeholder per timer, condizioni, eventi e piccole automazioni locali.</p><button type="button" disabled>Prossimamente</button></article>
+                <article class="script-card glass"><div class="script-top"><span class="script-icon"><i data-lucide="wifi"></i></span><span class="badge">Gratis</span></div><h3>Rete &amp; IoT</h3><p>Placeholder per integrazioni di rete disponibili secondo i permessi richiesti.</p><button type="button" disabled>Prossimamente</button></article>
+                <article class="script-card glass"><div class="script-top"><span class="script-icon"><i data-lucide="terminal"></i></span><span class="badge">Gratis</span></div><h3>Utility di sistema</h3><p>Placeholder per diagnostica, test hardware e manutenzione di NebilixOS.</p><button type="button" disabled>Prossimamente</button></article>
+                <article class="script-card glass"><div class="script-top"><span class="script-icon"><i data-lucide="package-plus"></i></span><span class="badge">Gratis</span></div><h3>Nuovi script</h3><p>Spazio riservato ai futuri pacchetti verificati della community.</p><button type="button" disabled>Prossimamente</button></article>
+            </div>
+            <p class="empty-note glass">Tutti gli script del Marketplace NebilixOS saranno gratuiti. Ogni pacchetto dichiara versione, compatibilità e GPIO richieste prima dell'installazione.</p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-panel glass">NebilixOS-ESP32 — Sviluppato da Costa Fabio — Copyright © 2026 Costa Fabio — Apache License 2.0</div>
+    </footer>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            if (window.lucide) window.lucide.createIcons();
+            const trigger = document.getElementById("about-trigger");
+            const panel = document.getElementById("about-nebilix");
+            trigger.addEventListener("click", () => {
+                const willOpen = trigger.getAttribute("aria-expanded") !== "true";
+                trigger.setAttribute("aria-expanded", String(willOpen));
+                panel.hidden = !willOpen;
+            });
+
+            const checksum = document.getElementById("core-sha256");
+            const checksumStatus = document.getElementById("checksum-status");
+            document.getElementById("copy-core-sha256").addEventListener("click", async () => {
+                try {
+                    await navigator.clipboard.writeText(checksum.textContent.trim());
+                    checksumStatus.textContent = "Copiato";
+                } catch {
+                    const selection = window.getSelection();
+                    const range = document.createRange();
+                    range.selectNodeContents(checksum);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    checksumStatus.textContent = "Selezionato: premi Cmd+C";
+                }
+            });
+
+            const boardUrl = document.getElementById("board-url");
+            const boardToken = document.getElementById("board-token");
+            const connectButton = document.getElementById("board-connect");
+            const status = document.getElementById("board-status");
+            const installButton = document.querySelector(".install-script");
+            const runButton = document.querySelector(".run-script");
+            const blinkPin = document.getElementById("blink-pin");
+            let connected = false;
+
+            const baseUrl = () => boardUrl.value.trim().replace(/\/$/, "");
+            const headers = (contentType = "") => ({
+                "Authorization": `Bearer ${boardToken.value.trim()}`,
+                ...(contentType ? {"Content-Type": contentType} : {})
+            });
+            const message = (text, type = "") => {
+                status.textContent = text;
+                status.className = `board-status ${type}`.trim();
+            };
+            const setConnected = (value, installed = false) => {
+                connected = value;
+                installButton.disabled = !value;
+                runButton.disabled = !value || !installed;
+                blinkPin.disabled = !value;
+                installButton.textContent = value ? (installed ? "Reinstalla" : "Installa") : "Connetti la board";
+            };
+            async function boardRequest(path, options = {}) {
+                const response = await fetch(`${baseUrl()}${path}`, options);
+                const body = await response.json().catch(() => ({}));
+                if (!response.ok) throw new Error(body.error || `Errore HTTP ${response.status}`);
+                return body;
+            }
+            async function loadPinChoice(installed) {
+                const pins = await boardRequest("/api/v1/pins", {headers: headers()});
+                blinkPin.replaceChildren();
+                const empty = document.createElement("option"); empty.value = ""; empty.textContent = "Scegli il GPIO del LED"; blinkPin.append(empty);
+                for (const pin of pins.pins || []) {
+                    if (!pin.output) continue;
+                    const option = document.createElement("option"); option.value = String(pin.gpio);
+                    option.textContent = `GPIO ${pin.gpio}${pin.strapping ? " (pin di boot)" : ""}${pin.owner ? ` · occupata da ${pin.owner}` : ""}`;
+                    option.disabled = Boolean(pin.owner); blinkPin.append(option);
+                }
+                if (installed) {
+                    const current = await boardRequest("/api/v1/scripts/blink-led/bindings", {headers: headers()});
+                    const selected = current.requirements?.find(item => item.alias === "led")?.gpio;
+                    if (selected !== null && selected !== undefined) blinkPin.value = String(selected);
+                }
+            }
+            connectButton.addEventListener("click", async () => {
+                if (!boardToken.value.trim()) return message("Inserisci il token amministratore.", "error");
+                connectButton.disabled = true;
+                message("Connessione a NebilixOS in corso…");
+                try {
+                    const data = await boardRequest("/api/v1/scripts", {headers: headers()});
+                    const installed = data.scripts?.some(script => script.id === "blink-led") || false;
+                    await loadPinChoice(installed);
+                    setConnected(true, installed);
+                    message(`NebilixOS connesso · ${data.scripts?.length || 0} script installati.`, "connected");
+                } catch (error) {
+                    setConnected(false);
+                    message(`Connessione fallita: ${error.message}. Apri prima l'indirizzo della board e accetta il certificato HTTPS.`, "error");
+                } finally { connectButton.disabled = false; }
+            });
+            installButton.addEventListener("click", async () => {
+                if (!connected) return;
+                installButton.disabled = true;
+                message("Download e installazione di Blink LED…");
+                try {
+                    const source = await fetch("Assets/scripts/blink-led.nbx").then(response => {
+                        if (!response.ok) throw new Error("Pacchetto Marketplace non disponibile");
+                        return response.text();
+                    });
+                    if (!blinkPin.value) throw new Error("Scegli prima il GPIO da assegnare al LED");
+                    await boardRequest("/api/v1/scripts/blink-led", {method: "PUT", headers: headers("text/plain; charset=utf-8"), body: source});
+                    await boardRequest("/api/v1/scripts/blink-led/bindings", {method: "PUT", headers: headers("application/json"), body: JSON.stringify({led: Number(blinkPin.value)})});
+                    setConnected(true, true);
+                    message(`Blink LED installato e assegnato alla GPIO ${blinkPin.value}.`, "connected");
+                } catch (error) {
+                    installButton.disabled = false;
+                    message(`Installazione fallita: ${error.message}`, "error");
+                }
+            });
+            runButton.addEventListener("click", async () => {
+                runButton.disabled = true;
+                message("Avvio di Blink LED…");
+                try {
+                    await boardRequest("/api/v1/scripts/blink-led/start", {method: "POST", headers: headers()});
+                    message("Blink LED in esecuzione sulla board.", "connected");
+                    window.setTimeout(() => { if (connected) runButton.disabled = false; }, 10500);
+                } catch (error) {
+                    runButton.disabled = false;
+                    message(`Avvio fallito: ${error.message}`, "error");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

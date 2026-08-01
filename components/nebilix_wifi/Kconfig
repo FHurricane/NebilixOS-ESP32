@@ -1,0 +1,19 @@
+menu "NebilixOS network"
+
+    config NEBILIX_WIFI_SSID
+        string "Wi-Fi SSID"
+        default ""
+        help
+            Development Wi-Fi network name. Production releases will load this
+            value from encrypted provisioning storage instead.
+
+    config NEBILIX_WIFI_PASSWORD
+        string "Wi-Fi password"
+        default ""
+
+    config NEBILIX_WIFI_MAX_RETRIES
+        int "Maximum connection retries"
+        range 1 100
+        default 10
+
+endmenu

@@ -1,0 +1,15 @@
+# nebilix-script:1
+# id=blink-led
+# name=Blink LED
+# version=1.0.0
+# pin.led=output
+# autostart=false
+
+gpio.mode led output
+repeat 10
+  gpio.write led high
+  sleep 500
+  gpio.write led low
+  sleep 500
+end
+log Blink completato

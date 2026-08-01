@@ -1,0 +1,26 @@
+Options -Indexes
+
+<FilesMatch "^(?!NebilixOS-Core-[0-9]+\.[0-9]+\.[0-9]+-Developer-Preview\.(zip|zip\.sha256)$)">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "\.zip$">
+    RemoveHandler .zip
+    SetHandler none
+    ForceType application/zip
+    <IfModule mod_headers.c>
+        Header always set X-Content-Type-Options "nosniff"
+        Header always set Content-Disposition "attachment"
+        Header always set Cache-Control "no-cache, must-revalidate"
+    </IfModule>
+</FilesMatch>
+
+<FilesMatch "\.zip\.sha256$">
+    RemoveHandler .sha256
+    SetHandler none
+    ForceType text/plain
+    <IfModule mod_headers.c>
+        Header always set X-Content-Type-Options "nosniff"
+        Header always set Cache-Control "no-store"
+    </IfModule>
+</FilesMatch>
