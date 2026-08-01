@@ -162,6 +162,7 @@
         .flash-controls { min-width: min(100%,280px); display: grid; gap: 10px; }
         .flash-consent { display: flex; gap: 9px; align-items: flex-start; color: var(--muted); font-size: .8rem; line-height: 1.4; }
         .flash-consent input { margin-top: 3px; }
+        .flash-warning { margin: 0; border: 1px solid rgba(220,79,95,.24); border-radius: 12px; padding: 11px 12px; background: rgba(220,79,95,.08); color: #9f2637; font-size: .8rem; font-weight: 850; line-height: 1.45; }
         esp-web-install-button { --esp-tools-button-color: var(--blue); --esp-tools-button-text-color: white; --esp-tools-button-border-radius: 13px; }
         .flash-button { width: 100%; min-height: 44px; border: 0; border-radius: 13px; padding: 0 16px; color: white; background: linear-gradient(135deg,var(--blue),var(--violet)); font-weight: 850; cursor: pointer; }
         .flash-button:disabled { opacity: .45; cursor: not-allowed; }
@@ -302,6 +303,7 @@
                         </div>
                         <div class="flash-controls">
                             <label class="flash-consent"><input id="flash-consent" type="checkbox">Ho collegato una ESP32 compatibile e comprendo che il flash può cancellarne i dati.</label>
+                            <p class="flash-warning"><strong>Attenzione:</strong> durante il flash non scollegare la ESP32, non chiudere e non aggiornare la pagina. Un'interruzione può lasciare il dispositivo non avviabile e rendere necessario ripetere il flash dalla modalità bootloader.</p>
                             <esp-web-install-button id="web-flasher-button" manifest="Assets/downloads/nebilixos/NebilixOS-Core-0.1.0-web-manifest.json">
                                 <button class="flash-button" id="flash-button" slot="activate" type="button" disabled>Rileva ESP32 e installa</button>
                                 <span slot="unsupported">Web Serial non disponibile: usa Chrome o Edge su computer.</span>

@@ -23,6 +23,8 @@ Le modifiche rilevanti di NebilixOS sono documentate in questo file.
 - logo NebilixOS ridimensionato nella conferma finale del Web Flasher e
   versionamento degli asset per evitare interfacce obsolete nella cache;
 - stato di sviluppo della futura Ultimate Edition evidenziato nel Marketplace.
+- avviso di sicurezza contro disconnessione e aggiornamento della pagina durante
+  la scrittura del firmware.
 
 ### Sicurezza
 

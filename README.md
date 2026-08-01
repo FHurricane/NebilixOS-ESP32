@@ -125,6 +125,9 @@ La scheda Core include anche un Web Flasher per installare il firmware via USB
 da Chrome o Edge su computer. Prima del flash verifica che la board sia una
 ESP32 classica con almeno 4 MB di flash. L'opzione di cancellazione completa
 rimuove anche configurazione Wi-Fi, token, certificato e script già installati.
+Durante la scrittura non scollegare la board e non chiudere o aggiornare la
+pagina: un'interruzione può lasciare il dispositivo non avviabile e richiedere
+un nuovo flash dalla modalità bootloader.
 Al termine, il Marketplace può aprire nuovamente la porta seriale a 115200 baud,
 eseguire `remote token` e mostrare il nuovo token da copiare. Il valore resta
 soltanto nella pagina corrente: non viene inviato al server né salvato nel
