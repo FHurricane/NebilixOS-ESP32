@@ -3,25 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="Marketplace ufficiale di NebilixOS-ESP32: sistema operativo embedded minimale per miniscript GPIO su ESP32 ed ESP32-S3.">
+    <meta name="description" content="Scarica e installa NebilixOS Core per ESP32 dal browser. Marketplace ufficiale gratuito di miniscript GPIO, Web Flasher USB e Pin Manager.">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://nebilixos.local; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), serial=(self), usb=(), bluetooth=(), accelerometer=(), gyroscope=(), magnetometer=()">
     <meta name="author" content="Costa Fabio">
-    <meta name="robots" content="index, follow">
+    <meta name="keywords" content="NebilixOS, ESP32, sistema operativo embedded, miniscript GPIO, Web Flasher ESP32, marketplace script ESP32, Costa Fabio">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="theme-color" content="#f7fbff">
     <link rel="canonical" href="https://www.costafabio.it/NebilixOSMKTPLC.html">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="it_IT">
     <meta property="og:site_name" content="Costa Fabio">
-    <meta property="og:title" content="NebilixOS Marketplace | Costa Fabio">
-    <meta property="og:description" content="Scopri NebilixOS Core e Ultimate e il Marketplace gratuito di miniscript embedded per ESP32.">
+    <meta property="og:title" content="NebilixOS-ESP32 | Web Flasher e Marketplace gratuito">
+    <meta property="og:description" content="Installa NebilixOS Core via USB e scarica miniscript gratuiti per controllare le GPIO della ESP32.">
     <meta property="og:url" content="https://www.costafabio.it/NebilixOSMKTPLC.html">
-    <meta property="og:image" content="https://www.costafabio.it/Assets/ico/favicon.png">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="NebilixOS Marketplace | Costa Fabio">
-    <meta name="twitter:description" content="Marketplace gratuito di miniscript per NebilixOS-ESP32.">
-    <title>NebilixOS Marketplace | Costa Fabio</title>
+    <meta property="og:image" content="https://www.costafabio.it/Assets/img/nebilixos-esp32-logo.png">
+    <meta property="og:image:width" content="1254">
+    <meta property="og:image:height" content="1254">
+    <meta property="og:image:alt" content="Logo ufficiale di NebilixOS-ESP32">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NebilixOS-ESP32 | Web Flasher e Marketplace">
+    <meta name="twitter:description" content="Installa NebilixOS Core e scopri miniscript GPIO gratuiti per ESP32.">
+    <meta name="twitter:image" content="https://www.costafabio.it/Assets/img/nebilixos-esp32-logo.png">
+    <meta name="twitter:image:alt" content="Logo ufficiale di NebilixOS-ESP32">
+    <title>NebilixOS-ESP32 | Web Flasher e Marketplace gratuito</title>
     <link rel="icon" href="Assets/ico/favicon.ico" sizes="any">
     <link rel="apple-touch-icon" href="Assets/ico/favicon.png">
     <link rel="stylesheet" href="Assets/css/responsive-site.css">
@@ -30,13 +36,33 @@
         {
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
+            "@id": "https://www.costafabio.it/NebilixOSMKTPLC.html#software",
             "name": "NebilixOS-ESP32",
             "applicationCategory": "DeveloperApplication",
-            "operatingSystem": "ESP32, ESP32-S3",
-            "author": {"@type": "Person", "name": "Costa Fabio"},
+            "applicationSubCategory": "Embedded operating system",
+            "operatingSystem": "ESP32",
+            "softwareVersion": "0.1.0 Developer Preview",
+            "author": {"@type": "Person", "@id": "https://www.costafabio.it/#costa-fabio", "name": "Costa Fabio", "url": "https://www.costafabio.it/"},
             "license": "https://www.apache.org/licenses/LICENSE-2.0",
             "url": "https://www.costafabio.it/NebilixOSMKTPLC.html",
-            "description": "Sistema operativo embedded minimale per eseguire miniscript con accesso controllato alle GPIO."
+            "downloadUrl": "https://www.costafabio.it/Assets/downloads/nebilixos/NebilixOS-Core-0.1.0-Developer-Preview.zip",
+            "sameAs": "https://github.com/FHurricane/NebilixOS-ESP32",
+            "image": "https://www.costafabio.it/Assets/img/nebilixos-esp32-logo.png",
+            "description": "Sistema operativo embedded minimale per ESP32 che installa ed esegue miniscript NBX con accesso controllato alle GPIO.",
+            "featureList": ["Web Flasher USB", "Provisioning Wi-Fi", "Marketplace gratuito", "Pin Manager GPIO", "Dashboard HTTPS", "Mini terminale WebSocket"],
+            "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock"}
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {"@type": "Question", "name": "Che cos'è NebilixOS-ESP32?", "acceptedAnswer": {"@type": "Answer", "text": "NebilixOS-ESP32 è un ambiente embedded minimale basato su ESP-IDF e FreeRTOS che installa ed esegue miniscript NBX per controllare le GPIO senza ricompilare ogni volta il firmware."}},
+                {"@type": "Question", "name": "Quanto costa NebilixOS e il suo Marketplace?", "acceptedAnswer": {"@type": "Answer", "text": "NebilixOS Core e gli script pubblicati nel Marketplace ufficiale sono gratuiti. Il progetto è distribuito con licenza Apache License 2.0."}},
+                {"@type": "Question", "name": "Quale ESP32 supporta NebilixOS Core?", "acceptedAnswer": {"@type": "Answer", "text": "La Developer Preview Core 0.1.0 supporta ESP32 classico ed ESP-WROOM-32 con almeno 4 MB di memoria flash. La futura Ultimate Edition è prevista per ESP32-S3 con 16 MB Flash e 8 MB PSRAM."}},
+                {"@type": "Question", "name": "A cosa serve il token amministrativo?", "acceptedAnswer": {"@type": "Answer", "text": "Il token autentica l'accesso alla dashboard HTTPS, il mini terminale, l'installazione degli script e la configurazione dei GPIO. Ogni board genera un token differente."}}
+            ]
         }
     </script>
     <style>
@@ -169,6 +195,10 @@
         .board-status.connected { color: var(--green); font-weight: 800; }
         .board-status.error { color: var(--coral); }
         .empty-note { margin: 22px 0 0; padding: 16px 18px; border-radius: 18px; color: var(--muted); line-height: 1.55; text-align: center; }
+        .faq-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+        .faq-item { border-radius: 20px; padding: 20px; }
+        .faq-item h3 { margin: 0 0 8px; font-size: 1.05rem; }
+        .faq-item p { margin: 0; color: var(--muted); line-height: 1.62; }
         .github-project { max-width: var(--max); margin: 0 auto 18px; padding: 0 18px; text-align: center; }
         .github-link { display: inline-flex; align-items: center; gap: 10px; min-height: 46px; border: 1px solid rgba(37,99,235,.14); border-radius: 15px; padding: 0 17px; color: var(--ink); background: rgba(255,255,255,.55); font-weight: 850; box-shadow: 0 10px 26px rgba(30,41,59,.08); }
         .github-link:hover { color: var(--blue); transform: translateY(-1px); }
@@ -176,14 +206,17 @@
         .site-footer { max-width: var(--max); margin: 0 auto 34px; padding: 0 18px; }
         .footer-panel { min-height: 64px; display: flex; align-items: center; justify-content: center; border-radius: 22px; padding: 16px; color: var(--muted); font-size: .92rem; font-weight: 700; text-align: center; }
         @media (max-width: 900px) { .market-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
-        @media (max-width: 760px) { .hero-layout, .edition-grid, .board-connect, .web-flasher { grid-template-columns: 1fr; } .hero-logo { width: min(100%,520px); } .section-heading { align-items: flex-start; flex-direction: column; } }
+        @media (max-width: 760px) { .hero-layout, .edition-grid, .board-connect, .web-flasher, .faq-grid { grid-template-columns: 1fr; } .hero-logo { width: min(100%,520px); margin-inline: auto; } .section-heading { align-items: flex-start; flex-direction: column; } }
         @media (max-width: 620px) {
             .site-header { top: 8px; padding-inline: 10px; }
             .nav { align-items: flex-start; border-radius: 24px; flex-direction: column; }
-            .nav-links { width: 100%; overflow-x: auto; padding-bottom: 2px; }
+            .nav-links { width: 100%; overflow-x: auto; padding-bottom: 2px; scrollbar-width: thin; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; }
+            .nav-links a { flex: 0 0 auto; }
             h1 { font-size: clamp(2.65rem,15vw,4.2rem); }
             .market-grid { grid-template-columns: 1fr; }
             .about-panel, .edition-card { border-radius: 24px; padding: 21px; }
+            .token-actions button, .download-link { width: 100%; }
+            .checksum-value { font-size: .67rem; }
         }
         @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
     </style>
@@ -329,6 +362,19 @@
                 <article class="script-card glass"><div class="script-top"><span class="script-icon" aria-hidden="true">＋</span><span class="badge">Gratis</span></div><h3>Nuovi script</h3><p>Spazio riservato ai futuri pacchetti verificati della community.</p><button type="button" disabled>Prossimamente</button></article>
             </div>
             <p class="empty-note glass">Tutti gli script del Marketplace NebilixOS saranno gratuiti. Ogni pacchetto dichiara versione, compatibilità e GPIO richieste prima dell'installazione.</p>
+        </section>
+
+        <section class="section" aria-labelledby="faq-title">
+            <div class="section-heading">
+                <h2 id="faq-title">Domande frequenti.</h2>
+                <p>Le risposte essenziali per conoscere, installare e amministrare NebilixOS-ESP32.</p>
+            </div>
+            <div class="faq-grid">
+                <article class="faq-item glass"><h3>Che cos'è NebilixOS-ESP32?</h3><p>È un ambiente embedded minimale basato su ESP-IDF e FreeRTOS che installa ed esegue miniscript NBX per controllare le GPIO senza ricompilare ogni volta il firmware.</p></article>
+                <article class="faq-item glass"><h3>Quanto costa NebilixOS?</h3><p>NebilixOS Core e gli script del Marketplace ufficiale sono gratuiti. Il progetto è distribuito con Apache License 2.0.</p></article>
+                <article class="faq-item glass"><h3>Quale scheda è supportata?</h3><p>Core 0.1.0 Developer Preview supporta ESP32 classico ed ESP-WROOM-32 con almeno 4 MB di flash. Ultimate è prevista per ESP32-S3 con 16 MB Flash e 8 MB PSRAM.</p></article>
+                <article class="faq-item glass"><h3>A cosa serve il token amministrativo?</h3><p>Autentica la dashboard HTTPS, il mini terminale, l'installazione degli script e la configurazione GPIO. Ogni board genera un token differente da conservare come una password.</p></article>
+            </div>
         </section>
     </main>
 

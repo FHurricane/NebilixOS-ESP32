@@ -17,7 +17,9 @@ Le modifiche rilevanti di NebilixOS sono documentate in questo file.
 - Marketplace web con installazione di Blink LED e verifica SHA-256;
 - Web Flasher USB per installare Core Edition direttamente da Chrome o Edge;
 - recupero guidato del token amministrativo dalla seriale USB dopo il flash,
-  senza persistenza nel browser.
+  senza persistenza nel browser;
+- metadata social, dati strutturati SoftwareApplication e FAQ, contenuti GEO e
+  layout mobile migliorato per il Marketplace ufficiale.
 
 ### Sicurezza
 
