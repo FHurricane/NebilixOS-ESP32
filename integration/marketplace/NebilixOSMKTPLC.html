@@ -6,7 +6,7 @@
     <meta name="description" content="Marketplace ufficiale di NebilixOS-ESP32: sistema operativo embedded minimale per miniscript GPIO su ESP32 ed ESP32-S3.">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://nebilixos.local; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=(), accelerometer=(), gyroscope=(), magnetometer=()">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), serial=(self), usb=(), bluetooth=(), accelerometer=(), gyroscope=(), magnetometer=()">
     <meta name="author" content="Costa Fabio">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f7fbff">
@@ -25,6 +25,7 @@
     <link rel="icon" href="Assets/ico/favicon.ico" sizes="any">
     <link rel="apple-touch-icon" href="Assets/ico/favicon.png">
     <link rel="stylesheet" href="Assets/css/responsive-site.css">
+    <script type="module" src="Assets/vendor/esp-web-tools-10.4.0/install-button.js"></script>
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -128,6 +129,19 @@
         .checksum-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
         .checksum-actions button, .checksum-actions a { border: 1px solid rgba(37,99,235,.16); border-radius: 10px; padding: 8px 11px; background: rgba(255,255,255,.6); color: var(--blue); font: 800 .76rem/1 system-ui; cursor: pointer; }
         .checksum-status { color: var(--green); font-size: .76rem; font-weight: 800; }
+        .web-flasher { position: relative; z-index: 1; display: grid; gap: 16px; margin-top: 16px; border: 1px solid rgba(37,99,235,.13); border-radius: 16px; padding: 16px; background: rgba(255,255,255,.42); }
+        .web-flasher h3 { margin: 0 0 8px; font-size: 1.25rem; }
+        .web-flasher p { margin: 0; color: var(--muted); line-height: 1.55; }
+        .flash-controls { min-width: min(100%,280px); display: grid; gap: 10px; }
+        .flash-consent { display: flex; gap: 9px; align-items: flex-start; color: var(--muted); font-size: .8rem; line-height: 1.4; }
+        .flash-consent input { margin-top: 3px; }
+        esp-web-install-button { --esp-tools-button-color: var(--blue); --esp-tools-button-text-color: white; --esp-tools-button-border-radius: 13px; }
+        .flash-button { width: 100%; min-height: 44px; border: 0; border-radius: 13px; padding: 0 16px; color: white; background: linear-gradient(135deg,var(--blue),var(--violet)); font-weight: 850; cursor: pointer; }
+        .flash-button:disabled { opacity: .45; cursor: not-allowed; }
+        .flash-state { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: .8rem; font-weight: 800; }
+        .flash-state::before { content: ""; width: 9px; height: 9px; flex: 0 0 auto; border-radius: 50%; background: #94a3b8; }
+        .flash-state.ready::before { background: var(--green); box-shadow: 0 0 0 4px rgba(15,138,104,.12); }
+        .flash-state.busy::before { background: #f59e0b; box-shadow: 0 0 0 4px rgba(245,158,11,.12); }
         .market-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; }
         .script-card { min-height: 250px; display: flex; flex-direction: column; border-radius: 26px; padding: 22px; }
         .script-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
@@ -148,10 +162,14 @@
         .board-status.connected { color: var(--green); font-weight: 800; }
         .board-status.error { color: var(--coral); }
         .empty-note { margin: 22px 0 0; padding: 16px 18px; border-radius: 18px; color: var(--muted); line-height: 1.55; text-align: center; }
+        .github-project { max-width: var(--max); margin: 0 auto 18px; padding: 0 18px; text-align: center; }
+        .github-link { display: inline-flex; align-items: center; gap: 10px; min-height: 46px; border: 1px solid rgba(37,99,235,.14); border-radius: 15px; padding: 0 17px; color: var(--ink); background: rgba(255,255,255,.55); font-weight: 850; box-shadow: 0 10px 26px rgba(30,41,59,.08); }
+        .github-link:hover { color: var(--blue); transform: translateY(-1px); }
+        .github-link svg { width: 22px; height: 22px; fill: currentColor; }
         .site-footer { max-width: var(--max); margin: 0 auto 34px; padding: 0 18px; }
         .footer-panel { min-height: 64px; display: flex; align-items: center; justify-content: center; border-radius: 22px; padding: 16px; color: var(--muted); font-size: .92rem; font-weight: 700; text-align: center; }
         @media (max-width: 900px) { .market-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
-        @media (max-width: 760px) { .hero-layout, .edition-grid, .board-connect { grid-template-columns: 1fr; } .hero-logo { width: min(100%,520px); } .section-heading { align-items: flex-start; flex-direction: column; } }
+        @media (max-width: 760px) { .hero-layout, .edition-grid, .board-connect, .web-flasher { grid-template-columns: 1fr; } .hero-logo { width: min(100%,520px); } .section-heading { align-items: flex-start; flex-direction: column; } }
         @media (max-width: 620px) {
             .site-header { top: 8px; padding-inline: 10px; }
             .nav { align-items: flex-start; border-radius: 24px; flex-direction: column; }
@@ -236,6 +254,21 @@
                             <span class="checksum-status" id="checksum-status" role="status" aria-live="polite"></span>
                         </div>
                     </div>
+                    <div class="web-flasher" aria-labelledby="flasher-title">
+                        <div>
+                            <h3 id="flasher-title">Web Flasher · Core 0.1.0</h3>
+                            <p>Collega una ESP32 classica da 4 MB con un cavo USB dati. Usa Chrome o Edge su computer: Safari e iOS non supportano questa procedura. La cancellazione completa elimina Wi-Fi, token, certificato e script presenti sulla board.</p>
+                        </div>
+                        <div class="flash-controls">
+                            <label class="flash-consent"><input id="flash-consent" type="checkbox">Ho collegato una ESP32 compatibile e comprendo che il flash può cancellarne i dati.</label>
+                            <esp-web-install-button id="web-flasher-button" manifest="Assets/downloads/nebilixos/NebilixOS-Core-0.1.0-web-manifest.json">
+                                <button class="flash-button" id="flash-button" slot="activate" type="button" disabled>Rileva ESP32 e installa</button>
+                                <span slot="unsupported">Web Serial non disponibile: usa Chrome o Edge su computer.</span>
+                                <span slot="not-allowed">Il Web Flasher richiede una connessione HTTPS.</span>
+                            </esp-web-install-button>
+                            <div class="flash-state" id="flash-state" role="status" aria-live="polite">ESP32 non collegata</div>
+                        </div>
+                    </div>
                 </article>
                 <article class="edition-card glass ultimate">
                     <span class="edition-label">Ultimate Edition</span>
@@ -281,6 +314,13 @@
         </section>
     </main>
 
+    <div class="github-project">
+        <a class="github-link" href="https://github.com/FHurricane/NebilixOS-ESP32" target="_blank" rel="noopener noreferrer" aria-label="Apri il repository ufficiale NebilixOS-ESP32 su GitHub">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.41c.58.11.79-.25.79-.56v-2.23c-3.22.7-3.9-1.37-3.9-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.57-.29-5.27-1.29-5.27-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.47.11-3.05 0 0 .97-.31 3.16 1.18a10.9 10.9 0 0 1 5.76 0c2.19-1.49 3.16-1.18 3.16-1.18.63 1.58.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.71 5.39-5.29 5.68.42.36.79 1.06.79 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg>
+            Repository ufficiale su GitHub
+        </a>
+    </div>
+
     <footer class="site-footer">
         <div class="footer-panel glass">NebilixOS-ESP32 — Sviluppato da Costa Fabio — Copyright © 2026 Costa Fabio — Apache License 2.0</div>
     </footer>
@@ -310,6 +350,30 @@
                     checksumStatus.textContent = "Selezionato: premi Cmd+C";
                 }
             });
+
+            const flashConsent = document.getElementById("flash-consent");
+            const flashButton = document.getElementById("flash-button");
+            const flashState = document.getElementById("flash-state");
+            flashConsent.addEventListener("change", () => {
+                flashButton.disabled = !flashConsent.checked;
+                flashState.textContent = flashConsent.checked ? "Pronta per rilevare la porta USB" : "ESP32 non collegata";
+                flashState.className = flashConsent.checked ? "flash-state ready" : "flash-state";
+            });
+            flashButton.addEventListener("click", () => {
+                flashState.textContent = "Seleziona la porta USB della ESP32…";
+                flashState.className = "flash-state busy";
+            });
+            const flasherObserver = new MutationObserver(() => {
+                const dialog = document.querySelector("ewt-install-dialog");
+                if (dialog) {
+                    flashState.textContent = "ESP32 selezionata · procedura di installazione aperta";
+                    flashState.className = "flash-state ready";
+                } else if (flashState.classList.contains("busy") || flashState.textContent.includes("selezionata")) {
+                    flashState.textContent = "Sessione conclusa o annullata";
+                    flashState.className = "flash-state";
+                }
+            });
+            flasherObserver.observe(document.body, {childList: true});
 
             const boardUrl = document.getElementById("board-url");
             const boardToken = document.getElementById("board-token");

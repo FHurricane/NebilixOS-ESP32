@@ -115,6 +115,11 @@ gli script NBX disponibili e configurarne i GPIO. Tutti gli script pubblicati
 sono gratuiti. Durante la Developer Preview, installa pacchetti soltanto dal
 sito ufficiale e verifica sempre le informazioni e i permessi GPIO dichiarati.
 
+La scheda Core include anche un Web Flasher per installare il firmware via USB
+da Chrome o Edge su computer. Prima del flash verifica che la board sia una
+ESP32 classica con almeno 4 MB di flash. L'opzione di cancellazione completa
+rimuove anche configurazione Wi-Fi, token, certificato e script già installati.
+
 ## Console
 
 ```text

@@ -1,7 +1,24 @@
 Options -Indexes
 
-<FilesMatch "^(?!NebilixOS-Core-[0-9]+\.[0-9]+\.[0-9]+-Developer-Preview\.(zip|zip\.sha256)$)">
+<FilesMatch "^(?!NebilixOS-Core-0\.1\.0-(Developer-Preview\.zip|Developer-Preview\.zip\.sha256|web-manifest\.json|app\.bin|bootloader\.bin|partitions\.bin)$)">
     Require all denied
+</FilesMatch>
+
+<FilesMatch "\.(bin|json)$">
+    RemoveHandler .bin .json
+    SetHandler none
+    <IfModule mod_headers.c>
+        Header always set X-Content-Type-Options "nosniff"
+        Header always set Cache-Control "no-cache, must-revalidate"
+    </IfModule>
+</FilesMatch>
+
+<FilesMatch "\.bin$">
+    ForceType application/octet-stream
+</FilesMatch>
+
+<FilesMatch "web-manifest\.json$">
+    ForceType application/json
 </FilesMatch>
 
 <FilesMatch "\.zip$">

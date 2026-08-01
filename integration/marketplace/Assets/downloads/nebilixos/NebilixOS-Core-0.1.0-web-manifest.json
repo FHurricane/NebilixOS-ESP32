@@ -1,0 +1,16 @@
+{
+  "name": "NebilixOS Core",
+  "version": "0.1.0",
+  "new_install_prompt_erase": true,
+  "new_install_improv_wait_time": 0,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        {"path": "NebilixOS-Core-0.1.0-bootloader.bin", "offset": 4096},
+        {"path": "NebilixOS-Core-0.1.0-partitions.bin", "offset": 32768},
+        {"path": "NebilixOS-Core-0.1.0-app.bin", "offset": 65536}
+      ]
+    }
+  ]
+}

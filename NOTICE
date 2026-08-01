@@ -8,3 +8,7 @@ those third-party components remain subject to their respective licenses.
 Third-party dependencies are resolved by ESP-IDF and are not relicensed by
 NebilixOS. Refer to each dependency's source distribution for its license and
 notices.
+
+The Marketplace integration includes ESP Web Tools 10.4.0, copyright Open Home
+Foundation and contributors, distributed under the Apache License 2.0. Its
+license is included with the vendored browser files.
