@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Marketplace ufficiale di NebilixOS-ESP32: sistema operativo embedded minimale per miniscript GPIO su ESP32 ed ESP32-S3.">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://nebilixos.local; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://nebilixos.local; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=(), accelerometer=(), gyroscope=(), magnetometer=()">
     <meta name="author" content="Costa Fabio">
@@ -24,9 +24,7 @@
     <title>NebilixOS Marketplace | Costa Fabio</title>
     <link rel="icon" href="Assets/ico/favicon.ico" sizes="any">
     <link rel="apple-touch-icon" href="Assets/ico/favicon.png">
-    <link rel="preconnect" href="https://unpkg.com">
     <link rel="stylesheet" href="Assets/css/responsive-site.css">
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -219,7 +217,7 @@
             </div>
             <div class="edition-grid">
                 <article class="edition-card glass">
-                    <span class="edition-label"><i data-lucide="cpu"></i> Core Edition</span>
+                    <span class="edition-label">Core Edition</span>
                     <h3>NebilixOS Core</h3>
                     <p>La versione essenziale destinata agli ESP32 classici, progettata per consumare poche risorse e controllare sensori, LED, relè e periferiche GPIO.</p>
                     <ul>
@@ -240,7 +238,7 @@
                     </div>
                 </article>
                 <article class="edition-card glass ultimate">
-                    <span class="edition-label"><i data-lucide="sparkles"></i> Ultimate Edition</span>
+                    <span class="edition-label">Ultimate Edition</span>
                     <h3>NebilixOS Ultimate</h3>
                     <p>L'edizione estesa per ESP32-S3 con 16 MB di Flash e 8 MB di PSRAM, pensata per script più articolati, Marketplace locale e servizi avanzati.</p>
                     <ul>
@@ -272,12 +270,12 @@
                 <p>Installa gli script direttamente sulla board senza ricompilare o riflashare NebilixOS.</p>
             </div>
             <div class="market-grid">
-                <article class="script-card glass" data-script-id="blink-led"><div class="script-top"><span class="script-icon"><i data-lucide="lightbulb"></i></span><span class="badge">Gratis · Core</span></div><h3>Blink LED</h3><p>Fa lampeggiare per dieci volte un LED sul GPIO scelto dall’utente. Versione 1.0.0, meno di 1 KB.</p><label class="pin-choice">Pin logico “led”<select id="blink-pin" disabled><option value="">Connetti prima la board</option></select></label><div class="script-actions"><button class="action install-script" type="button" disabled>Connetti la board</button><button class="action run-script" type="button" disabled>Avvia</button></div></article>
-                <article class="script-card glass"><div class="script-top"><span class="script-icon"><i data-lucide="gauge"></i></span><span class="badge">Gratis</span></div><h3>Sensori</h3><p>Placeholder per lettura, calibrazione e monitoraggio dei sensori collegati.</p><button type="button" disabled>Prossimamente</button></article>
-                <article class="script-card glass"><div class="script-top"><span class="script-icon"><i data-lucide="workflow"></i></span><span class="badge">Gratis</span></div><h3>Automazione</h3><p>Placeholder per timer, condizioni, eventi e piccole automazioni locali.</p><button type="button" disabled>Prossimamente</button></article>
-                <article class="script-card glass"><div class="script-top"><span class="script-icon"><i data-lucide="wifi"></i></span><span class="badge">Gratis</span></div><h3>Rete &amp; IoT</h3><p>Placeholder per integrazioni di rete disponibili secondo i permessi richiesti.</p><button type="button" disabled>Prossimamente</button></article>
-                <article class="script-card glass"><div class="script-top"><span class="script-icon"><i data-lucide="terminal"></i></span><span class="badge">Gratis</span></div><h3>Utility di sistema</h3><p>Placeholder per diagnostica, test hardware e manutenzione di NebilixOS.</p><button type="button" disabled>Prossimamente</button></article>
-                <article class="script-card glass"><div class="script-top"><span class="script-icon"><i data-lucide="package-plus"></i></span><span class="badge">Gratis</span></div><h3>Nuovi script</h3><p>Spazio riservato ai futuri pacchetti verificati della community.</p><button type="button" disabled>Prossimamente</button></article>
+                <article class="script-card glass" data-script-id="blink-led"><div class="script-top"><span class="script-icon" aria-hidden="true">●</span><span class="badge">Gratis · Core</span></div><h3>Blink LED</h3><p>Fa lampeggiare per dieci volte un LED sul GPIO scelto dall’utente. Versione 1.0.0, meno di 1 KB.</p><label class="pin-choice">Pin logico “led”<select id="blink-pin" disabled><option value="">Connetti prima la board</option></select></label><div class="script-actions"><button class="action install-script" type="button" disabled>Connetti la board</button><button class="action run-script" type="button" disabled>Avvia</button></div></article>
+                <article class="script-card glass"><div class="script-top"><span class="script-icon" aria-hidden="true">◉</span><span class="badge">Gratis</span></div><h3>Sensori</h3><p>Placeholder per lettura, calibrazione e monitoraggio dei sensori collegati.</p><button type="button" disabled>Prossimamente</button></article>
+                <article class="script-card glass"><div class="script-top"><span class="script-icon" aria-hidden="true">◇</span><span class="badge">Gratis</span></div><h3>Automazione</h3><p>Placeholder per timer, condizioni, eventi e piccole automazioni locali.</p><button type="button" disabled>Prossimamente</button></article>
+                <article class="script-card glass"><div class="script-top"><span class="script-icon" aria-hidden="true">⌁</span><span class="badge">Gratis</span></div><h3>Rete &amp; IoT</h3><p>Placeholder per integrazioni di rete disponibili secondo i permessi richiesti.</p><button type="button" disabled>Prossimamente</button></article>
+                <article class="script-card glass"><div class="script-top"><span class="script-icon" aria-hidden="true">›_</span><span class="badge">Gratis</span></div><h3>Utility di sistema</h3><p>Placeholder per diagnostica, test hardware e manutenzione di NebilixOS.</p><button type="button" disabled>Prossimamente</button></article>
+                <article class="script-card glass"><div class="script-top"><span class="script-icon" aria-hidden="true">＋</span><span class="badge">Gratis</span></div><h3>Nuovi script</h3><p>Spazio riservato ai futuri pacchetti verificati della community.</p><button type="button" disabled>Prossimamente</button></article>
             </div>
             <p class="empty-note glass">Tutti gli script del Marketplace NebilixOS saranno gratuiti. Ogni pacchetto dichiara versione, compatibilità e GPIO richieste prima dell'installazione.</p>
         </section>
@@ -289,7 +287,6 @@
 
     <script>
         window.addEventListener("DOMContentLoaded", () => {
-            if (window.lucide) window.lucide.createIcons();
             const trigger = document.getElementById("about-trigger");
             const panel = document.getElementById("about-nebilix");
             trigger.addEventListener("click", () => {

@@ -1,0 +1,43 @@
+name: Bug report
+description: Report a reproducible NebilixOS problem without including secrets.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include Wi-Fi passwords, administrator tokens, private keys or unredacted NVS/serial dumps.
+  - type: input
+    id: version
+    attributes:
+      label: NebilixOS version
+      placeholder: Core 0.1.0 Developer Preview
+    validations:
+      required: true
+  - type: input
+    id: hardware
+    attributes:
+      label: Hardware
+      placeholder: ESP-WROOM-32, flash size and board model
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed credentials, tokens, private keys and personal network information.
+          required: true
+        - label: This report does not disclose a security vulnerability.
+          required: true

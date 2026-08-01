@@ -1,90 +1,110 @@
-# NebilixOS per ESP32
+# NebilixOS-ESP32
 
-Copyright (c) 2026 Costa Fabio. Distribuito con licenza Apache License 2.0.
+NebilixOS è un ambiente embedded minimale basato su ESP-IDF e FreeRTOS che
+installa ed esegue miniscript NBX per controllare le GPIO senza ricompilare ogni
+volta il firmware.
 
-Progetto base per una scheda NodeMCU con modulo ESP-WROOM-32, CPU dual-core e
-convertitore USB/seriale CH340C. Usa esclusivamente ESP-IDF nativo e FreeRTOS;
-Arduino non è una dipendenza del progetto.
+> **Stato:** Core Edition 0.1.0 Developer Preview. Non utilizzare in produzione,
+> impianti critici, sistemi di sicurezza fisica o dispositivi senza supervisione.
 
-NebilixOS è un sistema operativo embedded minimale per eseguire miniscript con
-accesso controllato alle GPIO. Gli script potranno essere installati da un
-Marketplace, verificati e avviati in una macchina virtuale isolata.
+Copyright (c) 2026 Costa Fabio. Distribuito secondo la Apache License 2.0.
 
-## Licenza
+## Funzioni disponibili
 
-Il codice originale di NebilixOS è distribuito secondo la Apache License 2.0.
-Consulta `LICENSE` per i termini completi e `NOTICE` per l'attribuzione.
+- provisioning Wi-Fi tramite access point e pagina web;
+- scansione delle reti Wi-Fi presenti;
+- dashboard locale HTTPS su `https://nebilixos.local`;
+- mini terminale WebSocket protetto da token amministrativo;
+- installazione degli script NBX dopo il flash del firmware;
+- Pin Manager grafico con associazioni persistenti;
+- prenotazione dei GPIO e blocco dei conflitti tra script;
+- certificato HTTPS e chiave ECDSA P-256 generati da ogni singola board.
 
-## Ambiente consigliato (macOS)
+NebilixOS Core utilizza un interprete con validazione preventiva delle
+istruzioni. Non è ancora una macchina virtuale con isolamento completo della
+memoria e non deve essere descritta come sandbox di sicurezza.
 
-1. Installa Visual Studio Code.
-2. Installa l'estensione consigliata **Espressif IDF** quando VS Code la propone.
-3. Apri la palette comandi (`Shift+Cmd+P`) e avvia
-   `ESP-IDF: Open ESP-IDF Installation Manager`.
-4. Usa ESP-IDF 5.5.2 e completa la configurazione proposta dall'estensione.
-5. Apri questa cartella in VS Code e seleziona il target `esp32`.
+## Hardware supportato
 
-Il percorso del progetto contiene spazi; è supportato dalle versioni moderne di
-ESP-IDF. Non spostare o rinominare la cartella mentre VS Code è aperto.
+La Developer Preview è destinata a ESP32 classico con 4 MB di flash, incluso il
+modulo ESP-WROOM-32 usato nelle schede NodeMCU compatibili. ESP32-S3 e la futura
+Ultimate Edition non sono ancora supportati da questa build.
 
-## Compilazione e installazione
+## Primo avvio
 
-Collega la scheda con un cavo USB dati. In VS Code esegui nell'ordine:
+1. Installa il firmware e riavvia la board.
+2. Collegati alla rete Wi-Fi `NebilixOS` con password `nebilixos`.
+3. Apri `http://192.168.4.1` e seleziona il router di casa.
+4. Dopo il collegamento apri `https://nebilixos.local`.
+5. Accetta l'avviso relativo al certificato self-signed generato dalla board.
+6. Recupera il token amministrativo dalla console USB con `remote token`.
 
-- `ESP-IDF: Set Espressif Device Target` e scegli `esp32`;
-- `ESP-IDF: Select Port to Use` e scegli la porta `cu.wchusbserial...` o
-  `cu.usbserial...`;
-- `ESP-IDF: Build your project`;
-- `ESP-IDF: Flash your project`;
-- `ESP-IDF: Monitor your device`.
+La password `nebilixos` protegge soltanto la rete temporanea di provisioning.
+Il token amministrativo e l'identità HTTPS vengono generati sulla board e
+salvati nella NVS; non sono inclusi nel firmware distribuito.
 
-Da un terminale ESP-IDF equivalente:
+## Ambiente di sviluppo
+
+Requisiti:
+
+- ESP-IDF 5.5.2;
+- target `esp32`;
+- Python e tool installati da ESP-IDF;
+- cavo USB dati.
+
+Con Visual Studio Code installa l'estensione **Espressif IDF**, seleziona il
+target `esp32` e la porta seriale della board.
+
+Da un terminale ESP-IDF:
 
 ```sh
 idf.py set-target esp32
 idf.py build
-idf.py -p /dev/cu.wchusbserialXXXX flash monitor
+idf.py -p /dev/cu.usbserialXXXX flash monitor
 ```
 
-Sostituisci la porta con quella rilevata sul Mac. Per uscire dal monitor premi
-`Ctrl+]`.
+Su macOS la porta può chiamarsi `cu.usbserial...` oppure
+`cu.wchusbserial...`. Per uscire dal monitor premi `Ctrl+]`. Se la connessione
+fallisce, tieni premuto **BOOT**, premi e rilascia **EN**, quindi rilascia
+**BOOT** quando comincia la scrittura.
 
-## Modalità download e driver CH340C
+## Script NBX e Pin Manager
 
-Normalmente il circuito della scheda entra automaticamente in modalità download.
-Se compare `Failed to connect`, tieni premuto **BOOT**, premi e rilascia **EN**, poi
-rilascia **BOOT** quando inizia la scrittura.
+Gli script sono conservati nella partizione SPIFFS `scripts`, hanno una
+dimensione massima di 16 KiB e dichiarano pin logici:
 
-macOS recenti spesso riconosce CH340C senza driver aggiuntivi. Prima di installare
-driver di terze parti, verifica la presenza della porta con:
+```text
+# nebilix-script:1
+# id=blink-led
+# name=Blink LED
+# version=1.0.0
+# pin.led=output
+# autostart=false
 
-```sh
-ls /dev/cu.*
+gpio.mode led output
+gpio.write led high
+sleep 500
+gpio.write led low
 ```
 
-All'avvio il firmware stampa modello del chip, quantità di flash rilevata e memoria
-heap disponibile. Questi dati permettono di confermare le caratteristiche effettive
-della scheda prima di definire il partizionamento definitivo di NebilixOS.
+L'utente associa poi `led` a un GPIO fisico dal Pin Manager. Le associazioni
+sono persistenti, separate dal pacchetto e necessarie prima dell'avvio.
 
-## Script NBX
+Istruzioni Core 0.1: `gpio.mode`, `gpio.write`, `sleep`, `repeat`/`end` e
+`log`. Sono ammessi al massimo otto pin logici per script e due script in
+esecuzione contemporanea.
 
-Gli script sono installati dopo il firmware nella partizione SPIFFS `scripts` e non
-richiedono un nuovo flash. Ogni file è limitato a 16 KiB e dichiara pin logici,
-per esempio `# pin.led=output`. L'utente associa poi `led` a un GPIO fisico dal
-Pin Manager della dashboard; l'assegnazione è persistente e separata dal pacchetto.
-Un esempio completo è disponibile in `examples/blink-led.nbx`.
+GPIO esclusi o limitati su ESP-WROOM-32:
 
-Istruzioni Core Edition 0.1: `gpio.mode`, `gpio.write`, `sleep`, `repeat`/`end` e
-`log`. GPIO 6-11 sono sempre vietate perché collegate alla flash; GPIO 34-39 sono
-accettate soltanto come ingressi. Possono essere eseguiti al massimo due script
-contemporaneamente.
+- GPIO 1 e 3: console seriale;
+- GPIO 6-11: flash del modulo;
+- GPIO 34-36 e 39: solo ingresso;
+- GPIO 37 e 38: non esposti dal modulo supportato;
+- GPIO 0, 2, 5, 12 e 15: pin di strapping, segnalati nell'interfaccia.
 
-NebilixOS prenota i GPIO mentre uno script è in esecuzione, impedisce che due
-script usino contemporaneamente lo stesso pin e lo ripristina quando lo script
-termina. I GPIO 0, 2, 5, 12 e 15 sono segnalati come pin di boot e vanno scelti
-soltanto conoscendone l'effetto sulla scheda.
+Esempio completo: [`examples/blink-led.nbx`](examples/blink-led.nbx).
 
-Comandi shell e terminale web:
+## Console
 
 ```text
 script list
@@ -97,7 +117,9 @@ pin list
 pin assign blink-led led 2
 ```
 
-API HTTPS per l'app, protette da `Authorization: Bearer <token>`:
+## API locale
+
+Le API HTTPS richiedono `Authorization: Bearer <token>`:
 
 ```text
 GET    /api/v1/scripts
@@ -110,14 +132,49 @@ POST   /api/v1/scripts/{id}/stop
 DELETE /api/v1/scripts/{id}
 ```
 
-## Identità HTTPS della board
+Le richieste cross-origin sono consentite soltanto dal sito ufficiale
+`costafabio.it`. Il token resta necessario anche quando l'origine è ammessa.
 
-Il firmware distribuito non contiene certificati o chiavi private predefiniti.
-Al primo avvio ogni ESP32 genera una chiave ECDSA P-256 e un certificato
-self-signed per `nebilixos.local`, quindi li conserva nella propria NVS. Gli
-avvii successivi riutilizzano la stessa identità. Un'installazione che cancella
-l'intera flash genera una nuova identità e richiede di accettare nuovamente il
-certificato nel browser.
+## Sicurezza e limiti della Preview
 
-La Developer Preview non abilita ancora la cifratura NVS, Secure Boot o Flash
-Encryption: non è destinata a impianti critici o alla produzione.
+- Nessuna chiave privata TLS statica è incorporata nel binario.
+- Il certificato self-signed identifica `nebilixos.local`, ma richiede
+  accettazione manuale nel browser.
+- Password del router, token e chiave TLS risiedono nella NVS della board.
+- Secure Boot, Flash Encryption, NVS Encryption e firma dei pacchetti NBX non
+  sono ancora abilitati.
+- Installare soltanto script di cui si conosce la provenienza.
+
+Per segnalare una vulnerabilità consulta [`SECURITY.md`](SECURITY.md). Non
+inserire credenziali o dettagli sfruttabili nelle issue pubbliche.
+
+## Release e verifica SHA-256
+
+I binari non vengono versionati nel repository. Le build pubbliche devono
+essere distribuite tramite GitHub Releases o il sito ufficiale insieme al file
+`.sha256`.
+
+Su macOS o Linux:
+
+```sh
+shasum -a 256 NebilixOS-Core-0.1.0-Developer-Preview.zip
+```
+
+Il valore deve coincidere esattamente con quello pubblicato. Il checksum rileva
+corruzioni o modifiche, ma non sostituisce una firma digitale della release.
+
+## Struttura del progetto
+
+```text
+components/   kernel, Wi-Fi, script runtime, shell e servizi remoti
+examples/     miniscript NBX di esempio
+integration/  copia di integrazione del Marketplace web
+main/         avvio di NebilixOS
+```
+
+## Contribuire e licenza
+
+Leggi [`CONTRIBUTING.md`](CONTRIBUTING.md) prima di proporre modifiche. Il
+codice originale è distribuito secondo la [Apache License 2.0](LICENSE); le
+attribuzioni sono riportate in [`NOTICE`](NOTICE). Le modifiche pubblicate sono
+riassunte in [`CHANGELOG.md`](CHANGELOG.md).

@@ -23,3 +23,22 @@ personal data.
 
 Reports will be acknowledged as soon as practical. After verification, a fix
 and coordinated disclosure timeline will be prepared.
+
+## Secrets and public reports
+
+Never attach administrator tokens, router credentials, NVS partitions, serial
+logs containing tokens, TLS private keys or unredacted network information to a
+public issue. If a log is required, replace those values before sharing it.
+
+The fixed provisioning password `nebilixos` is public by design and is not an
+administrator credential. Provisioning is intended for initial, local setup;
+do not leave an unconfigured board powered in an untrusted environment.
+
+## Current security boundaries
+
+- NBX input is validated and size-limited, but the runtime is not yet a complete
+  security sandbox.
+- HTTPS protects transport after the user accepts the board's self-signed
+  certificate; it does not provide public-CA identity verification.
+- NVS contents are not encrypted in Core 0.1.0 Developer Preview.
+- Marketplace package signing and verified updates are planned but unavailable.

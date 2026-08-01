@@ -19,3 +19,17 @@ administrator token where appropriate and avoid exposing secrets in responses.
 
 For security vulnerabilities, follow `SECURITY.md` instead of opening a public
 issue.
+
+Before opening a pull request:
+
+```sh
+idf.py build
+git diff --check
+```
+
+Confirm that `git status` does not include `sdkconfig`, `build/`, firmware
+images, archives, NVS data, credentials or private keys. New dependencies must
+include their source, version, purpose and license in the pull request.
+
+By submitting a contribution, you agree that it may be distributed under the
+project's Apache License 2.0.

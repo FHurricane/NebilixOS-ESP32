@@ -4,3 +4,7 @@ Copyright 2026 Costa Fabio
 NebilixOS is an embedded script operating system developed by Costa Fabio.
 This product includes software developed using Espressif ESP-IDF and FreeRTOS;
 those third-party components remain subject to their respective licenses.
+
+Third-party dependencies are resolved by ESP-IDF and are not relicensed by
+NebilixOS. Refer to each dependency's source distribution for its license and
+notices.
