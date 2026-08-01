@@ -37,11 +37,17 @@ Ultimate Edition non sono ancora supportati da questa build.
 3. Apri `http://192.168.4.1` e seleziona il router di casa.
 4. Dopo il collegamento apri `https://nebilixos.local`.
 5. Accetta l'avviso relativo al certificato self-signed generato dalla board.
-6. Recupera il token amministrativo dalla console USB con `remote token`.
+6. Dalla scheda Core del Marketplace premi **Recupera token dalla ESP32**,
+   seleziona nuovamente la porta USB e copia il token. In alternativa usa
+   `remote token` dalla console USB.
 
 La password `nebilixos` protegge soltanto la rete temporanea di provisioning.
 Il token amministrativo e l'identità HTTPS vengono generati sulla board e
 salvati nella NVS; non sono inclusi nel firmware distribuito.
+
+Il token autentica le operazioni amministrative: accesso alla dashboard HTTPS,
+sblocco del mini terminale, installazione degli script e configurazione dei
+GPIO. È diverso per ogni board e deve essere trattato come una password.
 
 ## Ambiente di sviluppo
 
@@ -119,6 +125,10 @@ La scheda Core include anche un Web Flasher per installare il firmware via USB
 da Chrome o Edge su computer. Prima del flash verifica che la board sia una
 ESP32 classica con almeno 4 MB di flash. L'opzione di cancellazione completa
 rimuove anche configurazione Wi-Fi, token, certificato e script già installati.
+Al termine, il Marketplace può aprire nuovamente la porta seriale a 115200 baud,
+eseguire `remote token` e mostrare il nuovo token da copiare. Il valore resta
+soltanto nella pagina corrente: non viene inviato al server né salvato nel
+browser. La selezione della porta richiede sempre una conferma esplicita.
 
 ## Console
 

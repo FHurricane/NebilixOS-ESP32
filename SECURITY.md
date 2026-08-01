@@ -34,6 +34,12 @@ The fixed provisioning password `nebilixos` is public by design and is not an
 administrator credential. Provisioning is intended for initial, local setup;
 do not leave an unconfigured board powered in an untrusted environment.
 
+The official Marketplace can retrieve the administrator token after flashing
+by opening the board's USB serial port and issuing `remote token`. Browser port
+selection requires an explicit user action. The token is displayed only in the
+current page, is not uploaded to the website and is not stored in browser
+storage. Treat clipboard contents and screenshots as sensitive information.
+
 ## Current security boundaries
 
 - NBX input is validated and size-limited, but the runtime is not yet a complete

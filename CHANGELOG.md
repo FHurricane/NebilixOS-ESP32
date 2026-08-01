@@ -14,8 +14,10 @@ Le modifiche rilevanti di NebilixOS sono documentate in questo file.
 - installazione post-flash degli script nella partizione SPIFFS;
 - Pin Manager grafico, binding persistenti e protezione dai conflitti GPIO;
 - API HTTPS per Marketplace e futura applicazione mobile;
-- Marketplace web con installazione di Blink LED e verifica SHA-256.
-- Web Flasher USB per installare Core Edition direttamente da Chrome o Edge.
+- Marketplace web con installazione di Blink LED e verifica SHA-256;
+- Web Flasher USB per installare Core Edition direttamente da Chrome o Edge;
+- recupero guidato del token amministrativo dalla seriale USB dopo il flash,
+  senza persistenza nel browser.
 
 ### Sicurezza
 

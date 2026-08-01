@@ -142,6 +142,13 @@
         .flash-state::before { content: ""; width: 9px; height: 9px; flex: 0 0 auto; border-radius: 50%; background: #94a3b8; }
         .flash-state.ready::before { background: var(--green); box-shadow: 0 0 0 4px rgba(15,138,104,.12); }
         .flash-state.busy::before { background: #f59e0b; box-shadow: 0 0 0 4px rgba(245,158,11,.12); }
+        .token-recovery { display: grid; gap: 10px; border-top: 1px solid rgba(37,99,235,.13); padding-top: 14px; }
+        .token-recovery strong { font-size: .86rem; }
+        .token-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+        .token-actions button { min-height: 40px; border: 1px solid rgba(37,99,235,.16); border-radius: 11px; padding: 0 12px; background: rgba(255,255,255,.68); color: var(--blue); font-weight: 850; cursor: pointer; }
+        .token-actions button:disabled { opacity: .45; cursor: not-allowed; }
+        .token-output { width: 100%; min-height: 42px; border: 1px solid rgba(37,99,235,.16); border-radius: 11px; padding: 0 12px; background: rgba(255,255,255,.62); color: var(--ink); font: 700 .76rem/1 ui-monospace,SFMono-Regular,Menlo,monospace; }
+        .token-note { margin: 0; color: var(--muted); font-size: .76rem; line-height: 1.45; }
         .market-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; }
         .script-card { min-height: 250px; display: flex; flex-direction: column; border-radius: 26px; padding: 22px; }
         .script-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
@@ -267,6 +274,17 @@
                                 <span slot="not-allowed">Il Web Flasher richiede una connessione HTTPS.</span>
                             </esp-web-install-button>
                             <div class="flash-state" id="flash-state" role="status" aria-live="polite">ESP32 non collegata</div>
+                            <div class="token-recovery">
+                                <strong>Dopo il flash: recupera il token amministrativo</strong>
+                                <p class="token-note">Il token è la chiave privata necessaria per accedere alla dashboard HTTPS di NebilixOS, sbloccare il mini terminale, installare gli script del Marketplace e assegnare loro i GPIO. Ogni ESP32 ne genera uno diverso: copialo e conservalo senza condividerlo.</p>
+                                <div class="token-actions">
+                                    <button id="recover-token" type="button">Recupera token dalla ESP32</button>
+                                    <button id="toggle-token" type="button" disabled>Mostra</button>
+                                    <button id="copy-token" type="button" disabled>Copia token</button>
+                                </div>
+                                <input class="token-output" id="recovered-token" type="password" readonly autocomplete="off" aria-label="Token amministrativo recuperato" placeholder="Il token apparirà qui">
+                                <p class="token-note" id="token-status" role="status" aria-live="polite">Chiudi prima la finestra del flasher. Il token viene letto via USB e non viene salvato dal sito.</p>
+                            </div>
                         </div>
                     </div>
                 </article>
@@ -374,6 +392,88 @@
                 }
             });
             flasherObserver.observe(document.body, {childList: true});
+
+            const recoverTokenButton = document.getElementById("recover-token");
+            const toggleTokenButton = document.getElementById("toggle-token");
+            const copyTokenButton = document.getElementById("copy-token");
+            const recoveredToken = document.getElementById("recovered-token");
+            const tokenStatus = document.getElementById("token-status");
+            const setTokenStatus = text => { tokenStatus.textContent = text; };
+            recoverTokenButton.addEventListener("click", async () => {
+                if (!("serial" in navigator)) {
+                    setTokenStatus("Web Serial non disponibile: usa Chrome o Edge su computer.");
+                    return;
+                }
+                recoverTokenButton.disabled = true;
+                recoveredToken.value = "";
+                recoveredToken.type = "password";
+                toggleTokenButton.textContent = "Mostra";
+                toggleTokenButton.disabled = true;
+                copyTokenButton.disabled = true;
+                setTokenStatus("Seleziona nuovamente la porta USB della ESP32…");
+                let port;
+                let reader;
+                try {
+                    port = await navigator.serial.requestPort();
+                    await port.open({baudRate: 115200});
+                    setTokenStatus("Attendo l'avvio di NebilixOS…");
+                    await new Promise(resolve => window.setTimeout(resolve, 1600));
+                    const writer = port.writable.getWriter();
+                    await writer.write(new TextEncoder().encode("\r\nremote token\r\n"));
+                    writer.releaseLock();
+                    reader = port.readable.getReader();
+                    const decoder = new TextDecoder();
+                    let serialOutput = "";
+                    const deadline = Date.now() + 10000;
+                    while (Date.now() < deadline) {
+                        const remaining = deadline - Date.now();
+                        const result = await Promise.race([
+                            reader.read(),
+                            new Promise(resolve => window.setTimeout(() => resolve({timeout: true}), remaining))
+                        ]);
+                        if (result.timeout || result.done) break;
+                        serialOutput += decoder.decode(result.value, {stream: true});
+                        const match = serialOutput.match(/Token amministratore:\s*([0-9a-f]{32})/i);
+                        if (match) {
+                            recoveredToken.value = match[1].toLowerCase();
+                            toggleTokenButton.disabled = false;
+                            copyTokenButton.disabled = false;
+                            setTokenStatus("Token recuperato. Copialo adesso e conservalo in un luogo sicuro.");
+                            break;
+                        }
+                    }
+                    if (!recoveredToken.value) throw new Error("Token non ricevuto entro 10 secondi");
+                } catch (error) {
+                    const message = error.name === "NotFoundError"
+                        ? "Selezione della porta annullata."
+                        : `Recupero non riuscito: ${error.message}. Chiudi il flasher e riprova.`;
+                    setTokenStatus(message);
+                } finally {
+                    if (reader) {
+                        try { await reader.cancel(); } catch {}
+                        reader.releaseLock();
+                    }
+                    if (port) {
+                        try { await port.close(); } catch {}
+                    }
+                    recoverTokenButton.disabled = false;
+                }
+            });
+            toggleTokenButton.addEventListener("click", () => {
+                const reveal = recoveredToken.type === "password";
+                recoveredToken.type = reveal ? "text" : "password";
+                toggleTokenButton.textContent = reveal ? "Nascondi" : "Mostra";
+            });
+            copyTokenButton.addEventListener("click", async () => {
+                try {
+                    await navigator.clipboard.writeText(recoveredToken.value);
+                    setTokenStatus("Token copiato negli appunti. Conservalo in un luogo sicuro.");
+                } catch {
+                    recoveredToken.type = "text";
+                    recoveredToken.select();
+                    setTokenStatus("Token selezionato: premi Cmd+C.");
+                }
+            });
 
             const boardUrl = document.getElementById("board-url");
             const boardToken = document.getElementById("board-token");
