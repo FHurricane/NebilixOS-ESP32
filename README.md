@@ -104,6 +104,17 @@ GPIO esclusi o limitati su ESP-WROOM-32:
 
 Esempio completo: [`examples/blink-led.nbx`](examples/blink-led.nbx).
 
+## Marketplace gratuito
+
+Il Marketplace ufficiale gratuito di NebilixOS è disponibile qui:
+
+**[https://www.costafabio.it/NebilixOSMKTPLC.html](https://www.costafabio.it/NebilixOSMKTPLC.html)**
+
+Dal Marketplace è possibile collegarsi alla board sulla rete locale, installare
+gli script NBX disponibili e configurarne i GPIO. Tutti gli script pubblicati
+sono gratuiti. Durante la Developer Preview, installa pacchetti soltanto dal
+sito ufficiale e verifica sempre le informazioni e i permessi GPIO dichiarati.
+
 ## Console
 
 ```text
