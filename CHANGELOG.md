@@ -19,7 +19,8 @@ Le modifiche rilevanti di NebilixOS sono documentate in questo file.
 - recupero guidato del token amministrativo dalla seriale USB dopo il flash,
   senza persistenza nel browser;
 - metadata social, dati strutturati SoftwareApplication e FAQ, contenuti GEO e
-  layout mobile migliorato per il Marketplace ufficiale.
+  layout mobile migliorato per il Marketplace ufficiale;
+- logo NebilixOS ridimensionato nella conferma finale del Web Flasher.
 
 ### Sicurezza
 

@@ -11,4 +11,5 @@ notices.
 
 The Marketplace integration includes ESP Web Tools 10.4.0, copyright Open Home
 Foundation and contributors, distributed under the Apache License 2.0. Its
-license is included with the vendored browser files.
+license is included with the vendored browser files. The completion view is
+locally customized to display the NebilixOS-ESP32 project logo.

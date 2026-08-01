@@ -435,7 +435,7 @@ import{e,_ as t,o as i,i as r,x as s,a as o,n as a,t as n,m as l,b as d,E as c,c
       margin-bottom: 16px;
     }
   `,t([a()],Yo.prototype,"label",void 0),t([a()],Yo.prototype,"progress",void 0),customElements.define("ewt-page-progress",Yo);class Xo extends r{render(){return s`
-      <div class="icon">${this.icon}</div>
+      ${this.icon?s`<div class="icon">${this.icon}</div>`:""}
       ${this.label}
     `}}Xo.styles=o`
     :host {
@@ -444,9 +444,18 @@ import{e,_ as t,o as i,i as r,x as s,a as o,n as a,t as n,m as l,b as d,E as c,c
       text-align: center;
     }
     .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 50px;
       line-height: 80px;
       color: black;
+    }
+    .icon img {
+      display: block;
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
     }
   `,t([a()],Xo.prototype,"icon",void 0),t([a()],Xo.prototype,"label",void 0),customElements.define("ewt-page-message",Xo);const Jo=I`
   <svg width="24" height="24" viewBox="0 0 24 24">
@@ -820,7 +829,7 @@ import{e,_ as t,o as i,i as r,x as s,a as o,n as a,t as n,m as l,b as d,E as c,c
         `,i)}else if("finished"===this._installState.state){e=void 0;const i=null!==this._client;t=s`
         <ewt-page-message
           slot="content"
-          .icon=${"🎉"}
+          .icon=${s`<img src="/Assets/img/nebilixos-esp32-logo.png" alt="NebilixOS-ESP32" width="72" height="72">`}
           label="Installation complete!"
         ></ewt-page-message>
 
